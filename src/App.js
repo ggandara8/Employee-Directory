@@ -1,7 +1,8 @@
 import React from "react";
-import SearchAppBar from "./components/NavTabs";
+import NavBar from "./components/NavTabs";
 import EmployeeTable from "./components/Table";
 import orderBy from "lodash/orderBy";
+import Search from "./components/Search";
 
 const invertDirection = {
   asc: "desc",
@@ -64,7 +65,8 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <SearchAppBar />
+      <NavBar />
+      <Search data={this.state.data} />
       <EmployeeTable handleSort={this.handleSort}
             columnToSort={this.state.columnToSort}
             sortDirection={this.state.sortDirection}
