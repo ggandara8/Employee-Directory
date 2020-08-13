@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -17,10 +16,10 @@ class EmployeeTable extends React.Component {
         const data = this.props.data;
         const header = this.props.header;
         return (
-            <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <TableContainer component={Paper}>
+      <Table aria-label="simple table" style={{backgroundColor: "#D0D3D9", marginTop: 10}}>
         <TableHead>
-        {header.map((head, i) => (
+        {header.map((head) => (
           <TableRow key={head.id}>
             <TableCell align="center">
             <Button onClick={() => this.props.handleSort(head.prop)}><span>{head.name}</span>
