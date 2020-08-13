@@ -12,7 +12,6 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { FormControl, InputLabel, Input } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
-
 class EmployeeTable extends React.Component {
 
     state = {
@@ -47,7 +46,7 @@ class EmployeeTable extends React.Component {
         <Table aria-label="simple table" style={{backgroundColor: "#D0D3D9", marginTop: 10}}>
         <TableHead>
         {header.map((head) => (
-          <TableRow key={head.id}>
+          <TableRow key={head.id} className="header">
             <TableCell align="center">
             <Button onClick={() => this.props.handleSort(head.prop)}><span>{head.name}</span>
               {this.props.columnToSort === head.prop ? (
