@@ -1,6 +1,12 @@
 import React from "react";
 import SearchAppBar from "./components/NavTabs";
 import EmployeeTable from "./components/Table";
+import orderBy from "lodash/orderBy";
+
+const invertDirection = {
+  asc: "desc",
+  desc: "asc"
+};
 
 class App extends React.Component {
   state = {
@@ -40,14 +46,43 @@ class App extends React.Component {
       email: "rbobby@email.com",
       year: 1977
     }
-  ]
+  ],
+  columnToSort: "",
+  sortDirection: "desc"
   }
+
+  handleSort = columnName => {
+    this.setState(state => ({
+      columnToSort: columnName,
+      sortDirection:
+        state.columnToSort === columnName
+          ? invertDirection[state.sortDirection]
+          : "asc"
+    }));
+  };
 
   render() {
     return (
     <div>
       <SearchAppBar />
-      <EmployeeTable data={this.state.data} />
+      <EmployeeTable handleSort={this.handleSort}
+            columnToSort={this.state.columnToSort}
+            sortDirection={this.state.sortDirection}
+            data={orderBy(
+              this.state.data,
+              this.state.columnToSort,
+              this.state.sortDirection
+            )}
+            header={[
+              {
+                id: 1,
+                name: "Name",
+                phone: "Phone",
+                email: "Email",
+                year: "YOB",
+                prop: "name"
+              },
+            ]} />
     </div>
     );
   }
