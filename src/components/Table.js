@@ -9,15 +9,42 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import { FormControl, InputLabel, Input } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 
 class EmployeeTable extends React.Component {
+
+    state = {
+        search: ""
+    }
+
+    onChange = event => {
+        this.setState({ search: event.target.value });
+    };
     
     render() {
-        const data = this.props.data;
         const header = this.props.header;
+        const employees = this.props.data;
+        
+        const filterSearch = employees.filter(result => {
+           return result.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        });
+
         return (
-      <TableContainer component={Paper}>
-      <Table aria-label="simple table" style={{backgroundColor: "#D0D3D9", marginTop: 10}}>
+        <React.Fragment>
+        <div style={{textAlign: "center"}}>
+        <Typography component= {"span"}>    
+        <FormControl style={{marginTop: 20}}>
+        <InputLabel htmlFor="my-input">Search</InputLabel>
+        <Input id="my-input" type="text" aria-describedby="my-helper-text" 
+        value={this.state.search} onChange= {this.onChange.bind(this)} />
+        </FormControl>
+        </Typography>
+        </div>
+            
+        <TableContainer component={Paper}>
+        <Table aria-label="simple table" style={{backgroundColor: "#D0D3D9", marginTop: 10}}>
         <TableHead>
         {header.map((head) => (
           <TableRow key={head.id}>
@@ -38,7 +65,7 @@ class EmployeeTable extends React.Component {
         ))}
         </TableHead>
         <TableBody>
-          {data.map((em) => (
+          {filterSearch.map((em) => (
             <TableRow key={em.id}>
               <TableCell align="center" >{em.name}</TableCell>
               <TableCell align="center" >{em.phone}</TableCell>
@@ -49,6 +76,7 @@ class EmployeeTable extends React.Component {
         </TableBody>
       </Table>
     </TableContainer>
+    </React.Fragment>
         );
     }
 }
